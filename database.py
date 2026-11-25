@@ -1,28 +1,25 @@
 import json
 
-def loadStudents():
+def load_students():
     try:
-        with open("students.json", "r", encoding="utf-8") as f:
-            students = json.load(f)
-
+        file = open("students.json", "r", encoding="utf-8")
+        students = json.load(file)
+        file.close()
         return students
-        
+
     except FileNotFoundError as e:
-        print(e)
+        print("File Error:", e)
         return []
 
     except json.JSONDecodeError as e:
-        print(e)
+        print("JSON Error:", e)
         return []
 
-def saveStudents(students):
+def save_students(students):
     try:
-        with open("students.json", "w", encoding="utf-8") as f:
-            json.dump(students, f, indent=4, ensure_ascii=False)
+        file = open("students.json", "w", encoding="utf-8")
+        json.dump(students, file, indent=4)
+        file.close()
 
-        print("Data saved successfully.")
-        return True
-
-    except:
-        print("Some error occured.")
-        return False
+    except Exception as e:
+        print("Error:", e)
